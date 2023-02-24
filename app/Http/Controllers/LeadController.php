@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
 use App\Models\Lead;
+use Inertia\Inertia;
 
 class LeadController extends Controller
 {
@@ -17,11 +18,13 @@ class LeadController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new lead.
+     * 
+     * @return Inertia\Response
      */
     public function create()
     {
-        //
+        return Inertia::render('Lead/Create');
     }
 
     /**
