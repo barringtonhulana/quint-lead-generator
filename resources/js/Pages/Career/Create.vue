@@ -5,21 +5,47 @@ import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { inject, onMounted, ref } from 'vue';
-import ApplicationMarkVue from '../../Components/ApplicationMark.vue';
+import { inject, onMounted, ref, watch } from 'vue';
 
 const loader = inject('loader');
 
 const optInMarketing = ref(false);
-const termsAndConditions = ref(null);
+const termsAndConditions = ref(false);
 const acceptedTermsAndConditions = ref(false);
 
+let form = useForm({
+    firstName: '',
+    lastName: '',
+    email: '',
+    country: '',
+    streetAddress: '',
+    city: '',
+    region: '',
+    postalCode: '',
+    phoneNumber: '',
+    referredVia: '',
+    optInMarketing: '',
+    acceptedTermsAndConditions: '',
+});
 
-function optInMarketingToggle() {
+watch(optInMarketing, async (newData, oldData) => {
+    if (newData != oldData) {
+        form.optInMarketing = newData;
+    }
+})
+
+watch(acceptedTermsAndConditions, async (newData, oldData) => {
+    if (newData != oldData) {
+        form.acceptedTermsAndConditions = newData;
+    }
+})
+
+
+const optInMarketingToggle = () => {
     if (optInMarketing.value) {
         optInMarketing.value = false;
         let optInMarketingFormToggle = document.querySelector("#optInMarketingFormToggle");
-        optInMarketingFormToggle.classList.remove('bg-indigo-600');
+        optInMarketingFormToggle.classList.remove('bg-quint-green');
         optInMarketingFormToggle.classList.add('bg-gray-200');
 
         let optInMarketingFormToggleCircle = document.querySelector("#optInMarketingFormToggleCircle");
@@ -29,7 +55,7 @@ function optInMarketingToggle() {
         optInMarketing.value = true;
         let optInMarketingFormToggle = document.querySelector("#optInMarketingFormToggle");
         optInMarketingFormToggle.classList.remove('bg-gray-200');
-        optInMarketingFormToggle.classList.add('bg-indigo-600');
+        optInMarketingFormToggle.classList.add('bg-quint-green');
 
         let optInMarketingFormToggleCircle = document.querySelector("#optInMarketingFormToggleCircle");
         optInMarketingFormToggleCircle.classList.remove('translate-x-0');
@@ -37,12 +63,12 @@ function optInMarketingToggle() {
     }
 }
 
-function updateTermsAndConditionsForm() {
+const updateTermsAndConditionsForm = () => {
     if (termsAndConditions.value) {
         termsAndConditions.value = null;
         acceptedTermsAndConditions.value = false;
         let termsAndConditionsFormToggle = document.querySelector("#termsAndConditionsFormToggle");
-        termsAndConditionsFormToggle.classList.remove('bg-indigo-600');
+        termsAndConditionsFormToggle.classList.remove('bg-quint-green');
         termsAndConditionsFormToggle.classList.add('bg-gray-200');
 
         let termsAndConditionsFormToggleCircle = document.querySelector("#termsAndConditionsFormToggleCircle");
@@ -53,11 +79,18 @@ function updateTermsAndConditionsForm() {
     }
 }
 
-function acceptTermsAndConditions() {
+const submit = () => {
+    form.post(route('career.store'), {
+        preserveScroll: true,
+        onSuccess: () => form.reset()
+    });
+}
+
+const acceptTermsAndConditions = () => {
     acceptedTermsAndConditions.value = true;
     let termsAndConditionsFormToggle = document.querySelector("#termsAndConditionsFormToggle");
     termsAndConditionsFormToggle.classList.remove('bg-gray-200');
-    termsAndConditionsFormToggle.classList.add('bg-indigo-600');
+    termsAndConditionsFormToggle.classList.add('bg-quint-green');
 
     let termsAndConditionsFormToggleCircle = document.querySelector("#termsAndConditionsFormToggleCircle");
     termsAndConditionsFormToggleCircle.classList.remove('translate-x-0');
@@ -89,30 +122,32 @@ function acceptTermsAndConditions() {
 
                     <div class="mt-8">
                         <div class="mt-6">
-                            <form action="#" method="POST" class="space-y-6">
+                            <form @submit.prevent="submit" class="space-y-6">
                                 <div>
                                     <label for="firstName" class="block text-sm font-medium text-gray-700">First
                                         name</label>
                                     <div class="mt-1">
-                                        <input id="firstName" name="firstName" type="text" autocomplete="firstName"
-                                            required
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                        <input v-model="form.firstName" id="firstName" name="firstName" type="text"
+                                            autocomplete="firstName"
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
                                     <div class="mt-1">
-                                        <input id="lastName" name="lastName" type="text" autocomplete="lastName" required
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                        <input v-model="form.lastName" id="lastName" name="lastName" type="text"
+                                            autocomplete="lastName"
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                                     <div class="mt-1">
-                                        <input id="email" name="email" type="email" autocomplete="email" required
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                        <input v-model="form.email" id="email" name="email" type="email"
+                                            autocomplete="email"
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
                                     </div>
                                 </div>
 
@@ -121,8 +156,9 @@ function acceptTermsAndConditions() {
                                     <label for="country"
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Country</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <select id="country" name="country" autocomplete="country-name"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                        <select v-model="form.country" id="country" name="country"
+                                            autocomplete="country-name"
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
                                             <option>South Africa</option>
                                             <option>United Kingdom</option>
                                             <option>United States</option>
@@ -137,9 +173,9 @@ function acceptTermsAndConditions() {
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Street
                                         address</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input type="text" name="streetAddress" id="streetAddress"
-                                            autocomplete="streetAddress"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <input v-model="form.streetAddress" type="text" name="streetAddress"
+                                            id="streetAddress" autocomplete="streetAddress"
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:text-sm">
                                     </div>
                                 </div>
 
@@ -148,8 +184,9 @@ function acceptTermsAndConditions() {
                                     <label for="city"
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">City</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input type="text" name="city" id="city" autocomplete="address-level2"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                        <input v-model="form.city" type="text" name="city" id="city"
+                                            autocomplete="address-level2"
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
                                     </div>
                                 </div>
 
@@ -159,8 +196,9 @@ function acceptTermsAndConditions() {
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">State /
                                         Province</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input type="text" name="region" id="region" autocomplete="address-level1"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                        <input v-model="form.region" type="text" name="region" id="region"
+                                            autocomplete="address-level1"
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
                                     </div>
                                 </div>
 
@@ -170,8 +208,9 @@ function acceptTermsAndConditions() {
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">ZIP / Postal
                                         code</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input type="text" name="postalCode" id="postalCode" autocomplete="postalCode"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                        <input v-model="form.postalCode" type="text" name="postalCode" id="postalCode"
+                                            autocomplete="postalCode"
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
                                     </div>
                                 </div>
 
@@ -180,9 +219,9 @@ function acceptTermsAndConditions() {
                                     <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone
                                         number</label>
                                     <div class="mt-1">
-                                        <input id="phoneNumber" name="phoneNumber" type="tel" autocomplete="phoneNumber"
-                                            required
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                        <input v-model="form.phoneNumber" id="phoneNumber" name="phoneNumber" type="tel"
+                                            autocomplete="phoneNumber"
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
                                     </div>
                                 </div>
 
@@ -190,8 +229,8 @@ function acceptTermsAndConditions() {
                                     <label for="referredVia" class="block text-sm font-medium text-gray-700">How did you
                                         find
                                         out about the company?</label>
-                                    <select id="referredVia" name="referredVia"
-                                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                    <select v-model="form.referredVia" id="referredVia" name="referredVia"
+                                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
                                         <option selected>Select an option</option>
                                         <option>Website</option>
                                         <option>LinkedIn</option>
@@ -201,10 +240,11 @@ function acceptTermsAndConditions() {
                                 </div>
 
                                 <div class="flex justify-between">
-                                    <label for="optInMarketingFormToggle" class="block text-sm font-medium text-gray-700">Opt-in on
+                                    <label for="optInMarketingFormToggle"
+                                        class="block text-sm font-medium text-gray-700">Opt-in on
                                         marketing, promotional, career emails?</label>
                                     <button type="button" @click="optInMarketingToggle()" id="optInMarketingFormToggle"
-                                        class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to opt-in on marketing, promotional, career
                                             emails</span>
@@ -215,12 +255,13 @@ function acceptTermsAndConditions() {
                                 </div>
 
                                 <div class="flex justify-between">
-                                    <label for="termsAndConditionsFormToggle" class="block text-sm font-medium text-gray-700 mr-2">Accept terms
+                                    <label for="termsAndConditionsFormToggle"
+                                        class="block text-sm font-medium text-gray-700 mr-2">Accept terms
                                         and
                                         conditions?</label>
                                     <button type="button" @click="updateTermsAndConditionsForm()"
                                         id="termsAndConditionsFormToggle"
-                                        class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to open terms and conditions modal</span>
                                         <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
@@ -249,10 +290,8 @@ function acceptTermsAndConditions() {
                                 </ConfirmationModal>
 
                                 <div>
-                                    <button type="submit"
-                                        class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                        Submit
-                                    </button>
+                                    <PrimaryButton :type="'submit'" class="flex w-full justify-center">Submit
+                                    </PrimaryButton>
                                 </div>
                             </form>
                         </div>
@@ -262,7 +301,8 @@ function acceptTermsAndConditions() {
             <div class="relative hidden w-0 flex-1 lg:block">
                 <img class="absolute inset-0 h-full w-full object-cover"
                     src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-                alt="">
+                    alt="">
+            </div>
         </div>
-    </div>
-</AppLayout></template>
+    </AppLayout>
+</template>
