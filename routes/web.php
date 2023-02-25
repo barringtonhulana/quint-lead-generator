@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LeadController;
+use App\Http\Controllers\CareerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +25,7 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', [LeadController::class, 'create'])->name('lead.create');
+Route::get('/', [CareerController::class, 'create'])->name('career.create');
 
 Route::middleware([
     'auth:sanctum',

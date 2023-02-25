@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLeadRequest;
-use App\Http\Requests\UpdateLeadRequest;
-use App\Models\Lead;
+use App\Http\Requests\StoreCareerRequest;
+use App\Http\Requests\UpdateCareerRequest;
+use App\Models\Career;
 use Inertia\Inertia;
 
-class LeadController extends Controller
+class CareerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,19 +18,19 @@ class LeadController extends Controller
     }
 
     /**
-     * Show the form for creating a new lead.
+     * Show the form for creating a new career lead.
      * 
      * @return Inertia\Response
      */
     public function create()
     {
-        return Inertia::render('Lead/Create');
+        return Inertia::render('Career/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLeadRequest $request)
+    public function store(StoreCareerRequest $request)
     {
         //
     }
@@ -38,7 +38,7 @@ class LeadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lead $lead)
+    public function show(Career $career)
     {
         //
     }
@@ -46,7 +46,7 @@ class LeadController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Lead $lead)
+    public function edit(Career $career)
     {
         //
     }
@@ -54,7 +54,7 @@ class LeadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLeadRequest $request, Lead $lead)
+    public function update(UpdateCareerRequest $request, Career $career)
     {
         //
     }
@@ -62,7 +62,7 @@ class LeadController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lead $lead)
+    public function destroy(Career $career)
     {
         //
     }
