@@ -45,6 +45,7 @@ module.exports = {
             black: colors.black,
             white: colors.white,
             'quint-green': '#112e24',
+            'quint-orange': '#f6931d',
           },
     },
 
