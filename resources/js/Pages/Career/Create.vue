@@ -24,8 +24,8 @@ let form = useForm({
     postalCode: '',
     phoneNumber: '',
     referredVia: '',
-    optInMarketing: '',
-    acceptedTermsAndConditions: '',
+    optInMarketing: optInMarketing,
+    acceptedTermsAndConditions: acceptedTermsAndConditions,
 });
 
 watch(optInMarketing, async (newData, oldData) => {
@@ -79,13 +79,6 @@ const updateTermsAndConditionsForm = () => {
     }
 }
 
-const submit = () => {
-    form.post(route('career.store'), {
-        preserveScroll: true,
-        onSuccess: () => form.reset()
-    });
-}
-
 const acceptTermsAndConditions = () => {
     acceptedTermsAndConditions.value = true;
     let termsAndConditionsFormToggle = document.querySelector("#termsAndConditionsFormToggle");
@@ -96,6 +89,13 @@ const acceptTermsAndConditions = () => {
     termsAndConditionsFormToggleCircle.classList.remove('translate-x-0');
     termsAndConditionsFormToggleCircle.classList.add('translate-x-6');
 
+}
+
+const submit = () => {
+    form.post(route('career.store'), {
+        preserveScroll: true,
+        onSuccess: () => form.reset()
+    });
 }
 
 </script>
@@ -129,7 +129,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1">
                                         <input v-model="form.firstName" id="firstName" name="firstName" type="text"
                                             autocomplete="firstName"
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.firstName }"/>
+                                        <div v-if="form.errors.firstName" class="mt-2 text-sm text-red-600">{{ form.errors.firstName }}</div>
                                     </div>
                                 </div>
 
@@ -138,7 +140,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1">
                                         <input v-model="form.lastName" id="lastName" name="lastName" type="text"
                                             autocomplete="lastName"
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.lastName }"/>
+                                        <div v-if="form.errors.lastName" class="mt-2 text-sm text-red-600">{{ form.errors.lastName }}</div>
                                     </div>
                                 </div>
 
@@ -147,7 +151,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1">
                                         <input v-model="form.email" id="email" name="email" type="email"
                                             autocomplete="email"
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.email }"/>
+                                        <div v-if="form.errors.email" class="mt-2 text-sm text-red-600">{{ form.errors.email }}</div>
                                     </div>
                                 </div>
 
@@ -158,12 +164,14 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                                         <select v-model="form.country" id="country" name="country"
                                             autocomplete="country-name"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.country }">
                                             <option>South Africa</option>
                                             <option>United Kingdom</option>
                                             <option>United States</option>
                                             <option>Australia</option>
                                         </select>
+                                        <div v-if="form.errors.country" class="mt-2 text-sm text-red-600">{{ form.errors.country }}</div>
                                     </div>
                                 </div>
 
@@ -175,7 +183,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                                         <input v-model="form.streetAddress" type="text" name="streetAddress"
                                             id="streetAddress" autocomplete="streetAddress"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:text-sm">
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.streetAddress }"/>
+                                        <div v-if="form.errors.streetAddress" class="mt-2 text-sm text-red-600">{{ form.errors.streetAddress }}</div>
                                     </div>
                                 </div>
 
@@ -186,7 +196,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                                         <input v-model="form.city" type="text" name="city" id="city"
                                             autocomplete="address-level2"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.city }"/>
+                                        <div v-if="form.errors.city" class="mt-2 text-sm text-red-600">{{ form.errors.city }}</div>
                                     </div>
                                 </div>
 
@@ -198,7 +210,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                                         <input v-model="form.region" type="text" name="region" id="region"
                                             autocomplete="address-level1"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.region }"/>
+                                        <div v-if="form.errors.region" class="mt-2 text-sm text-red-600">{{ form.errors.region }}</div>
                                     </div>
                                 </div>
 
@@ -210,7 +224,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                                         <input v-model="form.postalCode" type="text" name="postalCode" id="postalCode"
                                             autocomplete="postalCode"
-                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.postalCode }"/>
+                                        <div v-if="form.errors.postalCode" class="mt-2 text-sm text-red-600">{{ form.errors.postalCode }}</div>
                                     </div>
                                 </div>
 
@@ -221,7 +237,9 @@ const acceptTermsAndConditions = () => {
                                     <div class="mt-1">
                                         <input v-model="form.phoneNumber" id="phoneNumber" name="phoneNumber" type="tel"
                                             autocomplete="phoneNumber"
-                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
+                                            class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.phoneNumber }"/>
+                                        <div v-if="form.errors.phoneNumber" class="mt-2 text-sm text-red-600">{{ form.errors.phoneNumber }}</div>
                                     </div>
                                 </div>
 
@@ -230,21 +248,25 @@ const acceptTermsAndConditions = () => {
                                         find
                                         out about the company?</label>
                                     <select v-model="form.referredVia" id="referredVia" name="referredVia"
-                                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm">
+                                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.referredVia }">
                                         <option selected>Select an option</option>
                                         <option>Website</option>
                                         <option>LinkedIn</option>
                                         <option>Employee</option>
                                         <option>Other</option>
                                     </select>
+                                    <div v-if="form.errors.referredVia" class="mt-2 text-sm text-red-600">{{ form.errors.referredVia }}</div>
                                 </div>
 
-                                <div class="flex justify-between">
-                                    <label for="optInMarketingFormToggle"
+                                <div class="">
+                                    <div class="flex justify-between">
+                                        <label for="optInMarketingFormToggle"
                                         class="block text-sm font-medium text-gray-700">Opt-in on
                                         marketing, promotional, career emails?</label>
                                     <button type="button" @click="optInMarketingToggle()" id="optInMarketingFormToggle"
                                         class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.optInMarketing }"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to opt-in on marketing, promotional, career
                                             emails</span>
@@ -252,22 +274,28 @@ const acceptTermsAndConditions = () => {
                                         <span aria-hidden="true" id="optInMarketingFormToggleCircle"
                                             class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
                                     </button>
+                                    </div>
+                                    <div v-if="form.errors.optInMarketing" class="mt-2 text-sm text-red-600">{{ form.errors.optInMarketing }}</div>
                                 </div>
 
-                                <div class="flex justify-between">
-                                    <label for="termsAndConditionsFormToggle"
+                                <div class="">
+                                    <div class="flex justify-between">
+                                        <label for="termsAndConditionsFormToggle"
                                         class="block text-sm font-medium text-gray-700 mr-2">Accept terms
                                         and
                                         conditions?</label>
                                     <button type="button" @click="updateTermsAndConditionsForm()"
                                         id="termsAndConditionsFormToggle"
                                         class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.acceptedTermsAndConditions }"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to open terms and conditions modal</span>
                                         <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
                                         <span aria-hidden="true" id="termsAndConditionsFormToggleCircle"
                                             class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
                                     </button>
+                                    </div>
+                                    <div v-if="form.errors.acceptedTermsAndConditions" class="mt-2 text-sm text-red-600">{{ form.errors.acceptedTermsAndConditions }}</div>
                                 </div>
 
                                 <ConfirmationModal :show="termsAndConditions && !acceptedTermsAndConditions"

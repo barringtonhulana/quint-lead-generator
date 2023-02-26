@@ -32,7 +32,7 @@ class CareerController extends Controller
      */
     public function store(StoreCareerRequest $request)
     {
-        //
+        return redirect()->route('career.create');
     }
 
     /**

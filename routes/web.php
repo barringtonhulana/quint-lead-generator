@@ -26,6 +26,7 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [CareerController::class, 'create'])->name('career.create');
+Route::post('/', [CareerController::class, 'store'])->name('career.store');
 
 Route::middleware([
     'auth:sanctum',
