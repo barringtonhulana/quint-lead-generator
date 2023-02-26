@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('street_address', 100);
             $table->string('city', 100);
             $table->string('region', 100);
-            $table->integer('postal_code');
+            $table->string('postal_code', 10);
             $table->timestamps();
         });
     }
