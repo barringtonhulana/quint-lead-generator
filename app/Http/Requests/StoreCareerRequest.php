@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCareerRequest extends FormRequest
 {
@@ -22,18 +23,22 @@ class StoreCareerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => 'required|max:255',
-            'lastName' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email:rfc,dns',
             'country' => 'required|max:255',
-            'streetAddress' => 'required|max:255',
+            'street_address' => 'required|max:255',
             'city' => 'required|max:255',
             'region' => 'required|max:255',
-            'postalCode' => 'required|numeric',
-            'phoneNumber' => 'required|numeric',
-            'referredVia' => 'required|max:255',
-            'optInMarketing' => 'required|boolean',
-            'acceptedTermsAndConditions' => 'required|boolean',
+            'postal_code' => 'required|numeric',
+            'phone_number' => 'required|numeric',
+            'referred_via' => 'required|max:255',
+            'opt_in_marketing' => 'required|boolean',
+            'accepted_terms_and_conditions' => [
+                'required',
+                'boolean',
+                Rule::in([true])
+            ],
         ];
     }
 
@@ -45,7 +50,7 @@ class StoreCareerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'referredVia.required' => 'The referral field is required',
+            'referred_via.required' => 'The referral field is required',
         ];
     }
 }

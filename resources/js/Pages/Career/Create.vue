@@ -14,29 +14,29 @@ const termsAndConditions = ref(false);
 const acceptedTermsAndConditions = ref(false);
 
 let form = useForm({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     country: '',
-    streetAddress: '',
+    street_address: '',
     city: '',
     region: '',
-    postalCode: '',
-    phoneNumber: '',
-    referredVia: '',
-    optInMarketing: optInMarketing,
-    acceptedTermsAndConditions: acceptedTermsAndConditions,
+    postal_code: '',
+    phone_number: '',
+    referred_via: '',
+    opt_in_marketing: optInMarketing,
+    accepted_terms_and_conditions: acceptedTermsAndConditions,
 });
 
 watch(optInMarketing, async (newData, oldData) => {
     if (newData != oldData) {
-        form.optInMarketing = newData;
+        form.opt_in_marketing = newData;
     }
 })
 
 watch(acceptedTermsAndConditions, async (newData, oldData) => {
     if (newData != oldData) {
-        form.acceptedTermsAndConditions = newData;
+        form.accepted_terms_and_conditions = newData;
     }
 })
 
@@ -44,20 +44,20 @@ watch(acceptedTermsAndConditions, async (newData, oldData) => {
 const optInMarketingToggle = () => {
     if (optInMarketing.value) {
         optInMarketing.value = false;
-        let optInMarketingFormToggle = document.querySelector("#optInMarketingFormToggle");
+        let optInMarketingFormToggle = document.querySelector("#opt_in_marketing_form_toggle");
         optInMarketingFormToggle.classList.remove('bg-quint-green');
         optInMarketingFormToggle.classList.add('bg-gray-200');
 
-        let optInMarketingFormToggleCircle = document.querySelector("#optInMarketingFormToggleCircle");
+        let optInMarketingFormToggleCircle = document.querySelector("#opt_in_marketing_form_toggle_circle");
         optInMarketingFormToggleCircle.classList.remove('translate-x-6');
         optInMarketingFormToggleCircle.classList.add('translate-x-0');
     } else {
         optInMarketing.value = true;
-        let optInMarketingFormToggle = document.querySelector("#optInMarketingFormToggle");
+        let optInMarketingFormToggle = document.querySelector("#opt_in_marketing_form_toggle");
         optInMarketingFormToggle.classList.remove('bg-gray-200');
         optInMarketingFormToggle.classList.add('bg-quint-green');
 
-        let optInMarketingFormToggleCircle = document.querySelector("#optInMarketingFormToggleCircle");
+        let optInMarketingFormToggleCircle = document.querySelector("#opt_in_marketing_form_toggle_circle");
         optInMarketingFormToggleCircle.classList.remove('translate-x-0');
         optInMarketingFormToggleCircle.classList.add('translate-x-6');
     }
@@ -67,11 +67,11 @@ const updateTermsAndConditionsForm = () => {
     if (termsAndConditions.value) {
         termsAndConditions.value = null;
         acceptedTermsAndConditions.value = false;
-        let termsAndConditionsFormToggle = document.querySelector("#termsAndConditionsFormToggle");
+        let termsAndConditionsFormToggle = document.querySelector("#terms_and_conditions_form_toggle");
         termsAndConditionsFormToggle.classList.remove('bg-quint-green');
         termsAndConditionsFormToggle.classList.add('bg-gray-200');
 
-        let termsAndConditionsFormToggleCircle = document.querySelector("#termsAndConditionsFormToggleCircle");
+        let termsAndConditionsFormToggleCircle = document.querySelector("#terms_and_conditions_form_toggle_circle");
         termsAndConditionsFormToggleCircle.classList.remove('translate-x-6');
         termsAndConditionsFormToggleCircle.classList.add('translate-x-0');
     } else {
@@ -81,11 +81,11 @@ const updateTermsAndConditionsForm = () => {
 
 const acceptTermsAndConditions = () => {
     acceptedTermsAndConditions.value = true;
-    let termsAndConditionsFormToggle = document.querySelector("#termsAndConditionsFormToggle");
+    let termsAndConditionsFormToggle = document.querySelector("#terms_and_conditions_form_toggle");
     termsAndConditionsFormToggle.classList.remove('bg-gray-200');
     termsAndConditionsFormToggle.classList.add('bg-quint-green');
 
-    let termsAndConditionsFormToggleCircle = document.querySelector("#termsAndConditionsFormToggleCircle");
+    let termsAndConditionsFormToggleCircle = document.querySelector("#terms_and_conditions_form_toggle_circle");
     termsAndConditionsFormToggleCircle.classList.remove('translate-x-0');
     termsAndConditionsFormToggleCircle.classList.add('translate-x-6');
 
@@ -124,25 +124,25 @@ const submit = () => {
                         <div class="mt-6">
                             <form @submit.prevent="submit" class="space-y-6">
                                 <div>
-                                    <label for="firstName" class="block text-sm font-medium text-gray-700">First
+                                    <label for="first_name" class="block text-sm font-medium text-gray-700">First
                                         name</label>
                                     <div class="mt-1">
-                                        <input v-model="form.firstName" id="firstName" name="firstName" type="text"
-                                            autocomplete="firstName"
+                                        <input v-model="form.first_name" id="first_name" name="first_name" type="text"
+                                            autocomplete="first_name"
                                             class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
-                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.firstName }"/>
-                                        <div v-if="form.errors.firstName" class="mt-2 text-sm text-red-600">{{ form.errors.firstName }}</div>
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.first_name }"/>
+                                        <div v-if="form.errors.first_name" class="mt-2 text-sm text-red-600">{{ form.errors.first_name }}</div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
+                                    <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
                                     <div class="mt-1">
-                                        <input v-model="form.lastName" id="lastName" name="lastName" type="text"
-                                            autocomplete="lastName"
+                                        <input v-model="form.last_name" id="last_name" name="last_name" type="text"
+                                            autocomplete="last_name"
                                             class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
-                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.lastName }"/>
-                                        <div v-if="form.errors.lastName" class="mt-2 text-sm text-red-600">{{ form.errors.lastName }}</div>
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.last_name }"/>
+                                        <div v-if="form.errors.last_name" class="mt-2 text-sm text-red-600">{{ form.errors.last_name }}</div>
                                     </div>
                                 </div>
 
@@ -177,15 +177,15 @@ const submit = () => {
 
                                 <div
                                     class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                                    <label for="streetAddress"
+                                    <label for="street_address"
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Street
                                         address</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input v-model="form.streetAddress" type="text" name="streetAddress"
-                                            id="streetAddress" autocomplete="streetAddress"
+                                        <input v-model="form.street_address" type="text" name="street_address"
+                                            id="street_address" autocomplete="street_address"
                                             class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:text-sm"
-                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.streetAddress }"/>
-                                        <div v-if="form.errors.streetAddress" class="mt-2 text-sm text-red-600">{{ form.errors.streetAddress }}</div>
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.street_address }"/>
+                                        <div v-if="form.errors.street_address" class="mt-2 text-sm text-red-600">{{ form.errors.street_address }}</div>
                                     </div>
                                 </div>
 
@@ -218,84 +218,84 @@ const submit = () => {
 
                                 <div
                                     class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                                    <label for="postalCode"
+                                    <label for="postal_code"
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">ZIP / Postal
                                         code</label>
                                     <div class="mt-1 sm:col-span-2 sm:mt-0">
-                                        <input v-model="form.postalCode" type="text" name="postalCode" id="postalCode"
-                                            autocomplete="postalCode"
+                                        <input v-model="form.postal_code" type="text" name="postal_code" id="postal_code"
+                                            autocomplete="postal_code"
                                             class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-quint-green focus:ring-quint-green sm:max-w-xs sm:text-sm"
-                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.postalCode }"/>
-                                        <div v-if="form.errors.postalCode" class="mt-2 text-sm text-red-600">{{ form.errors.postalCode }}</div>
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.postal_code }"/>
+                                        <div v-if="form.errors.postal_code" class="mt-2 text-sm text-red-600">{{ form.errors.postal_code }}</div>
                                     </div>
                                 </div>
 
 
                                 <div>
-                                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone
+                                    <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone
                                         number</label>
                                     <div class="mt-1">
-                                        <input v-model="form.phoneNumber" id="phoneNumber" name="phoneNumber" type="tel"
-                                            autocomplete="phoneNumber"
+                                        <input v-model="form.phone_number" id="phone_number" name="phone_number" type="tel"
+                                            autocomplete="phone_number"
                                             class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
-                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.phoneNumber }"/>
-                                        <div v-if="form.errors.phoneNumber" class="mt-2 text-sm text-red-600">{{ form.errors.phoneNumber }}</div>
+                                            :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.phone_number }"/>
+                                        <div v-if="form.errors.phone_number" class="mt-2 text-sm text-red-600">{{ form.errors.phone_number }}</div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label for="referredVia" class="block text-sm font-medium text-gray-700">How did you
+                                    <label for="referred_via" class="block text-sm font-medium text-gray-700">How did you
                                         find
                                         out about the company?</label>
-                                    <select v-model="form.referredVia" id="referredVia" name="referredVia"
+                                    <select v-model="form.referred_via" id="referred_via" name="referred_via"
                                         class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-quint-green focus:outline-none focus:ring-quint-green sm:text-sm"
-                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.referredVia }">
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.referred_via }">
                                         <option selected>Select an option</option>
                                         <option>Website</option>
                                         <option>LinkedIn</option>
                                         <option>Employee</option>
                                         <option>Other</option>
                                     </select>
-                                    <div v-if="form.errors.referredVia" class="mt-2 text-sm text-red-600">{{ form.errors.referredVia }}</div>
+                                    <div v-if="form.errors.referred_via" class="mt-2 text-sm text-red-600">{{ form.errors.referred_via }}</div>
                                 </div>
 
                                 <div class="">
                                     <div class="flex justify-between">
-                                        <label for="optInMarketingFormToggle"
+                                        <label for="opt_in_marketing"
                                         class="block text-sm font-medium text-gray-700">Opt-in on
                                         marketing, promotional, career emails?</label>
-                                    <button type="button" @click="optInMarketingToggle()" id="optInMarketingFormToggle"
+                                    <button type="button" @click="optInMarketingToggle()" id="opt_in_marketing_form_toggle"
                                         class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
-                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.optInMarketing }"
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.opt_in_marketing }"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to opt-in on marketing, promotional, career
                                             emails</span>
                                         <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
-                                        <span aria-hidden="true" id="optInMarketingFormToggleCircle"
+                                        <span aria-hidden="true" id="opt_in_marketing_form_toggle_circle"
                                             class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
                                     </button>
                                     </div>
-                                    <div v-if="form.errors.optInMarketing" class="mt-2 text-sm text-red-600">{{ form.errors.optInMarketing }}</div>
+                                    <div v-if="form.errors.opt_in_marketing" class="mt-2 text-sm text-red-600">{{ form.errors.opt_in_marketing }}</div>
                                 </div>
 
                                 <div class="">
                                     <div class="flex justify-between">
-                                        <label for="termsAndConditionsFormToggle"
+                                        <label for="terms_and_conditions_form_toggle"
                                         class="block text-sm font-medium text-gray-700 mr-2">Accept terms
                                         and
                                         conditions?</label>
                                     <button type="button" @click="updateTermsAndConditionsForm()"
-                                        id="termsAndConditionsFormToggle"
+                                        id="terms_and_conditions_form_toggle"
                                         class="bg-gray-200 relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-quint-green focus:ring-offset-2"
-                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.acceptedTermsAndConditions }"
+                                        :class="{'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-50': form.errors.accepted_terms_and_conditions }"
                                         role="switch" aria-checked="false">
                                         <span class="sr-only">Button to open terms and conditions modal</span>
                                         <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
-                                        <span aria-hidden="true" id="termsAndConditionsFormToggleCircle"
+                                        <span aria-hidden="true" id="terms_and_conditions_form_toggle_circle"
                                             class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
                                     </button>
                                     </div>
-                                    <div v-if="form.errors.acceptedTermsAndConditions" class="mt-2 text-sm text-red-600">{{ form.errors.acceptedTermsAndConditions }}</div>
+                                    <div v-if="form.errors.accepted_terms_and_conditions" class="mt-2 text-sm text-red-600">{{ form.errors.accepted_terms_and_conditions }}</div>
                                 </div>
 
                                 <ConfirmationModal :show="termsAndConditions && !acceptedTermsAndConditions"
