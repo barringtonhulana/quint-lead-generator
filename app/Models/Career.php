@@ -24,4 +24,15 @@ class Career extends Model
         'opt_in_marketing',
         'accepted_terms_and_conditions',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'created_at' => 'datetime:d F Y - H:m:s',
+        'updated_at' => 'datetime:d F Y - H:m:s',
+    ];
 }
