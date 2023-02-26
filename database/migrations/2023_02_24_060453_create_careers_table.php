@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('phone_number');
+            $table->string('phone_number', 20);
             $table->string('referred_via', 60);
             $table->boolean('opt_in_marketing')->default(false);
             $table->boolean('accepted_terms_and_conditions')->default(false);
