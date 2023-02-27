@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Career extends Model
 {
@@ -18,7 +19,6 @@ class Career extends Model
         'first_name',
         'last_name',
         'email',
-        'address_id',
         'phone_number',
         'referred_via',
         'opt_in_marketing',
@@ -35,4 +35,12 @@ class Career extends Model
         'created_at' => 'datetime:d F Y - H:m:s',
         'updated_at' => 'datetime:d F Y - H:m:s',
     ];
+
+    /**
+     * Get the address associated with the user.
+     */
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class);
+    }
 }
