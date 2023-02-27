@@ -17,7 +17,7 @@ class CareerController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Career/Index', [
-            'careers' => Career::orderBy('created_at', 'desc')->get(),
+            'careers' => Career::orderBy('created_at', 'desc')->paginate(10),
         ]);
     }
 
