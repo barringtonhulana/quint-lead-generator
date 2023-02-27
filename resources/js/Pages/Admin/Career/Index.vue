@@ -19,7 +19,7 @@ defineProps({
         <div class="bg-white shadow-md rounded-lg min-h-full w-3/4 mx-auto overflow-hidden">
             <ul role="list" class="divide-y divide-gray-200">
                 <li v-for="user in careers.data" :key="user.id">
-                    <a href="#" class="block hover:bg-gray-50">
+                    <Link :href="route('dashboard.show', user.id)" class="block hover:bg-gray-50">
                         <div class="flex items-center px-4 py-4 sm:px-6">
                             <div class="flex min-w-0 flex-1 items-center">
                                 <div class="flex-shrink-0 text-quint-orange">
@@ -60,7 +60,7 @@ defineProps({
                                 </svg>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </li>
             </ul>
 
