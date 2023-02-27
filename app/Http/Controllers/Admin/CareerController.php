@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreCareerRequest;
 use App\Http\Requests\UpdateCareerRequest;
 use App\Http\Controllers\Controller;
-use App\Models\Address;
 use App\Models\Career;
 use Inertia\Inertia;
 
@@ -42,7 +41,10 @@ class CareerController extends Controller
      */
     public function show(Career $career)
     {
-        //
+        return Inertia::render('Admin/Career/Show', [
+            'guest_user' => $career,
+            'address' => $career->address,
+        ]);
     }
 
     /**
