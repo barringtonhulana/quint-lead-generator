@@ -35,4 +35,5 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [AdminCareerController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/{career}', [AdminCareerController::class, 'show'])->name('dashboard.show');
 });
