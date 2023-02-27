@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('last_name', 100);
             $table->string('email')->unique();
             $table->foreignId('address_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
