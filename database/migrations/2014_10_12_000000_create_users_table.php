@@ -22,11 +22,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->boolean('is_admin')->default(false);
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('address_id')
-                ->nullable()
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });

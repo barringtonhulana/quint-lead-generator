@@ -16,11 +16,6 @@ return new class extends Migration
             $table->string('first_name', 100);
             $table->string('last_name', 100);
             $table->string('email')->unique();
-            $table->foreignId('address_id')
-                ->nullable()
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('phone_number', 20);
             $table->string('referred_via', 60);
             $table->boolean('opt_in_marketing')->default(false);
