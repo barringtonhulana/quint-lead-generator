@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
-import { useDebouncedRef } from '../../../Helpers/debouncedRef';
+// import { useDebouncedRef } from '@/Helpers/debouncedRef.js';
 
 defineProps({
     careers: Object,
