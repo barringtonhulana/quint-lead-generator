@@ -11,6 +11,7 @@ const appName = window.document.getElementsByTagName('title')[0]?.innerText || '
 const loader = new Loader({
     apiKey: "AIzaSyBgrxZrl58iD5-UlK7feCQ4olXeLimAdDE",
     version: "weekly",
+    libraries: ["places"],
   });
   
 createInertiaApp({
