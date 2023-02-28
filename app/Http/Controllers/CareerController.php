@@ -43,6 +43,9 @@ class CareerController extends Controller
             'postal_code' => $request->validated()['postal_code'],
         ]);
 
+        session()->flash('flash.banner', 'Application successful, thank you!');
+        session()->flash('flash.bannerStyle', 'success');
+
         return redirect()->route('career.create');
     }
 }

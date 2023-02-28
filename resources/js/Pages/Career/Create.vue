@@ -93,7 +93,7 @@ const acceptTermsAndConditions = () => {
 
 const submit = () => {
     form.post(route('career.store'), {
-        preserveScroll: true,
+        preserveScroll: false,
         onSuccess: () => form.reset()
     });
 }

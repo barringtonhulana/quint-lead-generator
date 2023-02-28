@@ -31,8 +31,6 @@ const logout = () => {
     <div>
         <Head :title="title" />
 
-        <Banner />
-
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -284,6 +282,8 @@ const logout = () => {
                     <slot name="header" />
                 </div>
             </header>
+
+            <Banner />
 
             <!-- Page Content -->
             <main class="py-8">
