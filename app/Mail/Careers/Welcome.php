@@ -9,11 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Welcome extends Mailable
+class Welcome extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+    
 
     protected $firstName = '';
+
+     /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 3;
 
     /**
      * Create a new message instance.
