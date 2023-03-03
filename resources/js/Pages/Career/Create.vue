@@ -91,14 +91,38 @@ const acceptTermsAndConditions = () => {
 
 }
 
+const resetOptInMarketing = () => {
+    optInMarketing.value = false;
+    let optInMarketingFormToggle = document.querySelector("#opt_in_marketing_form_toggle");
+    optInMarketingFormToggle.classList.remove('bg-quint-green');
+    optInMarketingFormToggle.classList.add('bg-gray-200');
+
+    let optInMarketingFormToggleCircle = document.querySelector("#opt_in_marketing_form_toggle_circle");
+    optInMarketingFormToggleCircle.classList.remove('translate-x-6');
+    optInMarketingFormToggleCircle.classList.add('translate-x-0');
+}
+
+const resetTermsAndConditionsForm = () => {
+    termsAndConditions.value = null;
+    acceptedTermsAndConditions.value = false;
+    
+    let termsAndConditionsFormToggle = document.querySelector("#terms_and_conditions_form_toggle");
+    termsAndConditionsFormToggle.classList.remove('bg-quint-green');
+    termsAndConditionsFormToggle.classList.add('bg-gray-200');
+
+    let termsAndConditionsFormToggleCircle = document.querySelector("#terms_and_conditions_form_toggle_circle");
+    termsAndConditionsFormToggleCircle.classList.remove('translate-x-6');
+    termsAndConditionsFormToggleCircle.classList.add('translate-x-0');
+}
+
 const submit = () => {
     form.post(route('career.store'), {
         preserveScroll: false,
         onSuccess: () => form.reset()
     });
 
-    optInMarketingToggle();
-    updateTermsAndConditionsForm();
+    resetOptInMarketing();
+    resetTermsAndConditionsForm();
 }
 
 </script>
