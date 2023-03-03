@@ -96,6 +96,9 @@ const submit = () => {
         preserveScroll: false,
         onSuccess: () => form.reset()
     });
+
+    optInMarketingToggle();
+    updateTermsAndConditionsForm();
 }
 
 </script>
