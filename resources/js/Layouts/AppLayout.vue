@@ -31,8 +31,6 @@ const logout = () => {
     <div>
         <Head :title="title" />
 
-        <Banner />
-
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -41,15 +39,26 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('career.create')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('career.create')" :active="route().current('career.create')">
+                                    Careers
+                                </NavLink>
+
+                                <NavLink v-if="$page.props.auth.user" :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+
+                                <NavLink v-if=" ! $page.props.auth.user" :href="route('login')" :active="route().current('login')">
+                                    Login
+                                </NavLink>
+                                <NavLink v-if="! $page.props.auth.user" :href="route('register')" :active="route().current('register')">
+                                    Register
                                 </NavLink>
                             </div>
                         </div>
@@ -116,14 +125,14 @@ const logout = () => {
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
-                                    <template #trigger>
+                                    <template #trigger v-if="$page.props.auth.user">
                                         <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.name">
+                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.first_name">
                                         </button>
 
                                         <span v-else class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                                {{ $page.props.auth.user.name }}
+                                                {{ $page.props.auth.user.first_name + ' ' + $page.props.auth.user.last_name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -191,21 +200,35 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('career.create')" :active="route().current('career.create')">
+                            Careers
+                        </ResponsiveNavLink>
+
+                        <div v-if=" ! $page.props.auth.user">
+                            <ResponsiveNavLink :href="route('login')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                Log in
+                            </ResponsiveNavLink>
+
+                            <ResponsiveNavLink :href="route('register')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                Register
+                            </ResponsiveNavLink>
+                        </div>
+
+                        <ResponsiveNavLink v-if="$page.props.auth.user" :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="flex items-center px-4">
+                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
+                        <div v-if="$page.props.auth.user" class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.name">
+                                <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.first_name">
                             </div>
 
                             <div>
                                 <div class="font-medium text-base text-gray-800">
-                                    {{ $page.props.auth.user.name }}
+                                    {{ $page.props.auth.user.first_name + ' ' + $page.props.auth.user.last_name }}
                                 </div>
                                 <div class="font-medium text-sm text-gray-500">
                                     {{ $page.props.auth.user.email }}
@@ -272,14 +295,16 @@ const logout = () => {
             </nav>
 
             <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
+            <header v-if="$slots.header" class="bg-quint-green shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>
 
+            <Banner />
+
             <!-- Page Content -->
-            <main>
+            <main class="py-8">
                 <slot />
             </main>
         </div>
