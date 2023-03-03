@@ -49,8 +49,16 @@ const logout = () => {
                                 <NavLink :href="route('career.create')" :active="route().current('career.create')">
                                     Careers
                                 </NavLink>
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+
+                                <NavLink v-if="$page.props.auth.user" :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+
+                                <NavLink v-if=" ! $page.props.auth.user" :href="route('login')" :active="route().current('login')">
+                                    Login
+                                </NavLink>
+                                <NavLink v-if="! $page.props.auth.user" :href="route('register')" :active="route().current('register')">
+                                    Register
                                 </NavLink>
                             </div>
                         </div>
@@ -117,7 +125,7 @@ const logout = () => {
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
-                                    <template #trigger>
+                                    <template #trigger v-if="$page.props.auth.user">
                                         <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                             <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.first_name">
                                         </button>
@@ -196,14 +204,24 @@ const logout = () => {
                             Careers
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <div v-if=" ! $page.props.auth.user">
+                            <ResponsiveNavLink :href="route('login')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                Log in
+                            </ResponsiveNavLink>
+
+                            <ResponsiveNavLink :href="route('register')" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                Register
+                            </ResponsiveNavLink>
+                        </div>
+
+                        <ResponsiveNavLink v-if="$page.props.auth.user" :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="flex items-center px-4">
+                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
+                        <div v-if="$page.props.auth.user" class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                 <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.first_name">
                             </div>
