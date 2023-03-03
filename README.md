@@ -1,6 +1,6 @@
 # quint-lead-generator
  
-This tool allows a user to complete a form to show interest in careers and gather leads from the user information, this career form is available for guest and admin users. For admin users they can view all user's intereseted in a career in paginated list and in detail view. Emails are also automatically scheduled by the task scheduler which will process new email jobs and send emails for new users that have shown interest.
+This is tool created using the latest version Laravel (v10), Vue 3, and Inertia JS as the adapter between Laravel and Vue (this will take care of passing data between Laravel and Vue, handling routes, and rendering pages). This lead generation tool allows a user to complete a form to show interest in careers and gather leads from the user information, this career form is available for guest and admin users. For admin users they can view all user's intereseted in a career in paginated list and in detail view. Emails are also automatically scheduled by the task scheduler which will process new email jobs and send emails for new users that have shown interest.
 
 ## How to setup the application:
 - Clone the repository to your local machine.
